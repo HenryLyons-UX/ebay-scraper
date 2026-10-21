@@ -10,11 +10,13 @@ args = parser.parse_args()
 output = []
 url = 'https://www.ebay.com/sch/i.html?_nkw=' + args.search + "& _pgn=1"
 response = ""
+headers = {'User-Agent': 'Mozilla/5.0'}
 for i in range(1, 11):
     print(url)
-    response = requests.get(url, timeout=10).text
+    response = requests.get(url, header = headers, timeout=10)
+    response.raise_for_status()
     url = 'https://www.ebay.com/sch/i.html?_nkw=' + args.search + "&_pgn=" + str(i+1)
-    soup = BeautifulSoup(response, "html.parser")
+    soup = BeautifulSoup(response.text, "html.parser")
     for listing in soup.select('.s-item'):
         item = {}
         if listing.select_one(".s-item__title") == None:
@@ -24,7 +26,7 @@ for i in range(1, 11):
         if listing.select_one(".s-item__price") == None:
             item['price'] = None
         else:
-            item['price'] = int(listing.select_one(".s-item__price").text.strip().replace('$', "").split())
+            item['price'] = int(listing.select_one(".s-item__price").text.strip().replace('$', "").split()[0])
         if listing.select_one(".SECONDARY_INFO") == None:
             item['status'] = None
         else:
