@@ -7,6 +7,7 @@ import time
 parser = argparse.ArgumentParser()
 parser.add_argument('--search', required=True)
 parser.add_argument('--pages-dir', required=False)
+parser.add_argument('--csv', required=False)
 args = parser.parse_args()
 output = []
 url = 'https://www.ebay.com/sch/i.html?_nkw=' + args.search + "&_pgn=1"
