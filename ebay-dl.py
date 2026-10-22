@@ -57,7 +57,9 @@ for i in range(1, 11):
         else:
             item['items_sold'] = int(listing.select_one(".s-item__hotness").text.strip().replace(",","").split()[0])
         output.append(item)
-
-with open(args.search + '.json', 'w', encoding='utf-8') as f:
-    json.dump(output, f, indent=2)
-    print('Saved products.json')
+if args.csv:
+    with open(args.search + '.csv')
+else:
+    with open(args.search + '.json', 'w', encoding='utf-8') as f:
+        json.dump(output, f, indent=2)
+        print('Saved products.json')
