@@ -31,7 +31,7 @@ for i in range(1, 11):
         if listing.select_one(".s-item__price") == None:
             item['price'] = None
         else:
-            item['price'] = int(listing.select_one(".s-item__price").text.strip().replace('$', "").replace(".","").split()[0])
+            item['price'] = int(listing.select_one(".s-item__price").text.strip().replace('$', "").replace(".","").replace(",","").split()[0])
         if listing.select_one(".SECONDARY_INFO") == None:
             item['status'] = None
         else:
@@ -43,7 +43,7 @@ for i in range(1, 11):
             if listing.select_one(".s-item__shipping").text.strip() == "Free shipping":
                 item['shipping'] = 0
             else:
-                item['shipping'] = int(listing.select_one(".s-item__shipping").text.strip().replace("$","").replace(".","").split()[0])
+                item['shipping'] = int(listing.select_one(".s-item__shipping").text.strip().replace("$","").replace(".","").replace(",","").split()[0])
         if listing.select_one(".s-item__free-returns") == None:
             item['free_returns'] = None
         else:
@@ -54,7 +54,7 @@ for i in range(1, 11):
         if listing.select_one(".s-item__hotness") == None:
             item['items_sold'] = None
         else:
-            item['items_sold'] = int(listing.select_one(".s-item__hotness").text.strip().split()[0])
+            item['items_sold'] = int(listing.select_one(".s-item__hotness").text.strip().replace(",","").split()[0])
         output.append(item)
 
 with open(args.search + '.json', 'w', encoding='utf-8') as f:
