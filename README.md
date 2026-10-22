@@ -7,5 +7,9 @@ This file starts by intaking a search time from the command line. It adds this s
     python ebay-dl.py --search (search term)
     to run code with practice files:
     python ebay-dl.py --search (search term) --pages-dir practice-pages
+    to run code with CSV:
+    python ebay-dl.py --search (search term) --pages-dir practice-pages --csv
+    example with CSV:
+    python ebay-dl.py --search "stuffed animal" --pages-dir practice-pages --csv
 3. Project page
 link: https://csci40.rtealwitter.com/projects/02_webscraping/project.html
