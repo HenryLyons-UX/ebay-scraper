@@ -3,11 +3,12 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import time
+import csv
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--search', required=True)
 parser.add_argument('--pages-dir', required=False)
-parser.add_argument('--csv', required=False)
+parser.add_argument('--csv', action='store_true')
 args = parser.parse_args()
 output = []
 url = 'https://www.ebay.com/sch/i.html?_nkw=' + args.search + "&_pgn=1"
@@ -58,7 +59,10 @@ for i in range(1, 11):
             item['items_sold'] = int(listing.select_one(".s-item__hotness").text.strip().replace(",","").split()[0])
         output.append(item)
 if args.csv:
-    with open(args.search + '.csv')
+    with open(args.search + '.csv', 'w', encoding='utf-8', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=['name', 'price', 'status', 'shipping', 'free_returns', 'items_sold'])
+        writer.writeheader()
+        writer.writerows(output)
 else:
     with open(args.search + '.json', 'w', encoding='utf-8') as f:
         json.dump(output, f, indent=2)
